@@ -73,6 +73,16 @@ module Gherkin
        	end
       end
 
+      def record_timestamps(start_time, end_time)
+        #check to make sure result exists (scenario outlines do not have results yet)
+        if !@current_step_or_hook['result'].nil?
+          rshash = @current_step_or_hook['result'].to_hash
+          rshash['start_time'] = start_time
+          rshash['end_time'] = end_time
+          @current_step_or_hook['result'] = rshash
+        end
+      end
+
       def before(match, result)
         add_hook(match, result, "before")
       end
